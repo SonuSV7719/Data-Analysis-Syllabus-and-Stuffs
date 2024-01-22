@@ -1,0 +1,300 @@
+1. What is SQL and PL/SQL
+2. IN, Between Operators
+3. Like Operator --> Wildcards --> %(Match letter) and _(Leave blank(any thing can be there))
+
+	--> Aggreagate Funtions
+		--> max, min, sum, avg, count
+4. Where Clause
+5. list of all operators 
+	--> >, <, =, <>(not equal), between, in, like, <=, >=, any
+
+6. What is Having --> Used with group by always--> condition
+
+7. SQL Commands
+
+	--> 1. DDL(Data Defination Language)(used table keyword with this)
+		--> 1. Create
+		--> 2. Drop
+		--> 3. Alter
+		--> 4. Truncate
+		--> 5. rename
+		--> 6. comment
+		
+	--> 2. DML(Data Manipulation Language)
+		--> 1. Insert
+		--> 2. Update
+		--> 3. Delete
+		
+	--> 3. DCL(Data Control Language)
+		--> 1. Grant 
+		--> 2. Revoke
+		
+	--> 4. TCL(Transaction Control Language)
+		--> 1. Commit
+		--> 2. Rollback
+		--> 3. Save point
+		
+	--> 5. DQL(Data Query Language)
+		--> Select
+		
+8. Nested Queries
+
+9. PL/SQL
+
+	CREATE or REPLACE PROCEDURE name(parameters)
+
+	IS
+
+	variables;
+
+	BEGIN
+
+	// Statement;
+
+	END;
+
+
+
+	--> General Syntax 
+
+		DELIMITER //
+
+		CREATE PROCEDURE procedure_name (parameter1 datatype, parameter2 datatype, ...)
+		    [MODIFIES SQL DATA | READS SQL DATA | NO SQL]
+		    [SQL SECURITY { DEFINER | INVOKER }]
+		BEGIN
+		    -- Declarations (optional)
+		    DECLARE variable_name datatype [DEFAULT initial_value];
+
+		    -- SQL statements
+		    -- ...
+
+		    -- Control flow statements (e.g., IF, WHILE, etc.)
+		    -- ...
+
+		    -- Return statement (if applicable)
+		    -- RETURN expression;
+
+		END //
+
+		DELIMITER ;
+		
+		
+	--> Example
+	
+		DELIMITER //
+
+		CREATE PROCEDURE AddNumbers(IN a INT, IN b INT, OUT result INT)
+		BEGIN
+		    SET result = a + b;
+		END //
+
+		DELIMITER ;
+		
+		
+	--> call
+	
+		DELIMITER ;
+
+		-- Declare a variable to store the result
+		SET @output_result = 0;
+
+		-- Call the stored procedure
+		CALL AddNumbers(3, 5, @output_result);
+
+		-- Use the result
+		SELECT @output_result AS SumResult;
+
+	--> Call Way 1.
+	
+		-- Assuming the procedure has a parameter named 'param'
+		CALL SimpleProcedure('param_value');
+	
+	--> Call Way 2.
+	
+		-- Assuming the procedure returns a result set
+		SELECT * FROM SimpleProcedure();
+
+
+
+
+--> 10. in , out, in out
+
+--> 11. IF Then else syntax 
+
+	IF condition THEN
+	    -- statements to execute if condition is true
+	ELSE
+	    -- statements to execute if condition is false
+	END IF;
+
+--> 12. Loop Syntax:
+
+	DELIMITER //
+
+	CREATE PROCEDURE SimpleWhileLoop()
+	BEGIN
+	    DECLARE counter INT DEFAULT 1;
+
+	    -- While loop
+	    WHILE counter <= 5 DO
+		-- Statements to execute in each iteration
+		SELECT CONCAT('Iteration ', counter) AS Result;
+
+		-- Increment the counter
+		SET counter = counter + 1;
+	    END WHILE;
+	END //
+
+	DELIMITER ;
+
+
+
+--> 13. Cursor
+
+	--> General Syntax : 
+
+		DELIMITER //
+
+		CREATE PROCEDURE ExampleCursorProcedure()
+		BEGIN
+		    -- Declare variables for cursor
+		    DECLARE column1_type column1_variable_type;
+		    DECLARE column2_type column2_variable_type;
+		    -- ... declare variables for each column you need
+
+		    -- Declare the cursor
+		    DECLARE cursor_name CURSOR FOR
+			SELECT column1, column2, ... FROM your_table;
+
+		    -- Declare a handler for when no more rows are found
+		    DECLARE CONTINUE HANDLER FOR NOT FOUND
+			SET column1_type = NULL; -- Use appropriate variable type for your column
+
+		    -- Open the cursor
+		    OPEN cursor_name;
+
+		    -- Loop through the cursor
+		    cursor_loop: LOOP
+			-- Fetch the next row into variables
+			FETCH cursor_name INTO column1_type, column2_type, ...;
+
+			-- Exit the loop if no more rows
+			IF column1_type IS NULL THEN
+			    LEAVE cursor_loop;
+			END IF;
+
+			-- Process the current row
+			-- You can perform operations on column1_type, column2_type, ...
+
+			-- Example: Display the current row
+			SELECT CONCAT('Column1: ', column1_type, ', Column2: ', column2_type) AS RowInfo;
+		    END LOOP;
+
+		    -- Close the cursor
+		    CLOSE cursor_name;
+
+		END //
+
+		DELIMITER ;
+		
+		
+	--> Example
+		-- Create the products table
+		CREATE TABLE products (
+		    product_id INT PRIMARY KEY,
+		    product_name VARCHAR(255)
+		);
+
+		-- Insert some sample data
+		INSERT INTO products (product_id, product_name) VALUES
+		(1, 'Laptop'),
+		(2, 'Smartphone'),
+		(3, 'Headphones'),
+		(4, 'Tablet');
+
+		-- Create the stored procedure with a cursor
+		DELIMITER //
+
+		CREATE PROCEDURE DisplayProducts()
+		BEGIN
+		    -- Declare variables for cursor
+		    DECLARE product_id INT;
+		    DECLARE product_name VARCHAR(255);
+
+		    -- Declare the cursor
+		    DECLARE product_cursor CURSOR FOR
+			SELECT product_id, product_name FROM products;
+
+		    -- Declare a handler for when no more rows are found
+		    DECLARE CONTINUE HANDLER FOR NOT FOUND
+			SET product_id = NULL;
+
+		    -- Open the cursor
+		    OPEN product_cursor;
+
+		    -- Loop through the cursor
+		    product_loop: LOOP
+			-- Fetch the next row into variables
+			FETCH product_cursor INTO product_id, product_name;
+
+			-- Exit the loop if no more rows
+			IF product_id IS NULL THEN
+			    LEAVE product_loop;
+			END IF;
+
+			-- Display the current product
+			SELECT CONCAT('Product ID: ', product_id, ', Product Name: ', product_name) AS ProductInfo;
+		    END LOOP;
+
+		    -- Close the cursor
+		    CLOSE product_cursor;
+
+		END //
+
+		DELIMITER ;
+
+
+
+--> 14. Trigger 
+
+	--> General Syntax 
+		CREATE TRIGGER trigger_name
+		{BEFORE | AFTER} {INSERT | UPDATE | DELETE} ON table_name
+		FOR EACH ROW
+		BEGIN
+		    -- Trigger body: SQL statements to be executed
+
+		    -- Access column values using NEW.column_name and OLD.column_name
+		    -- NEW.column_name represents the new value after the operation
+		    -- OLD.column_name represents the old value before the operation
+		END;
+		
+	--> Example:
+	
+		-- Create the employees table
+		CREATE TABLE employees (
+		    id INT PRIMARY KEY,
+		    name VARCHAR(255),
+		    last_updated TIMESTAMP
+		);
+
+		-- Insert some sample data
+		INSERT INTO employees (id, name, last_updated) VALUES
+		(1, 'John Doe', NOW()),
+		(2, 'Jane Smith', NOW());
+
+		-- Create the trigger
+		DELIMITER //
+		CREATE TRIGGER update_last_updated
+		BEFORE UPDATE ON employees
+		FOR EACH ROW
+		BEGIN
+		    SET NEW.last_updated = NOW();
+		END;
+		//
+		DELIMITER ;
+
+
+
+

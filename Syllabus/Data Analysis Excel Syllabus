@@ -1,0 +1,37 @@
+1. Data Preprocessing
+	--> 1. Using Tabs --> Manual(Flash Fill)
+	--> 2. Using Formulas --> automated
+	--> 3. Most powerfull way --> using power query 
+
+2. EDA (Exploratary Data Analysis)
+	--> 1. Pivot Table 
+	--> 2. Using Formulas 
+	--> 3. Conditional Formating
+	
+3. Pivot Tables
+
+4. Formulas:
+	--> 1. sumifs
+	--> 2. countifs
+	--> 3. averageifs
+	--> 4. xlookup
+	--> 5. maxifs
+	--> 6. index + match
+	--> 7. filter
+	--> 8. max
+	--> 9. large
+
+
+5. Charts
+	--> 1. Scatter Plot
+	--> 2. Bar Plot
+	--> 3. Line Plot 
+	--> 4. Box Plot
+
+6. Report Dashboard 
+	--> Project End To End
+	--> Finder Creation --> using formula, button
+	--> Pivote table use --> create finder
+
+
+
