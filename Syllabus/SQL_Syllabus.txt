@@ -352,3 +352,7 @@
 	4. LAG(): Accesses data from a previous row.
 	5. LEAD(): Accesses data from a subsequent row.
 	6. SUM() OVER(), AVG() OVER(), etc.: Perform aggregate operations over a specified window of rows.
+
+
+
+### IS NULL and IS NOT NULL is used to check null or not
