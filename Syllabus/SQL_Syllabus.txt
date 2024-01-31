@@ -27,7 +27,18 @@
 		
 	--> 3. DCL(Data Control Language)
 		--> 1. Grant 
+			Example: GRANT SELECT, INSERT, DELETE ON mydb TO 'user1'@'localhost';
+
 		--> 2. Revoke
+			Example: REVOKE INSERT ON mydb FROM 'user1'@'localhost';
+			Some Steps: 
+			1.CREATE ROLE testing
+			2. GRANT CREATE TABLE TO testing
+			3. GRANT testing TO user1
+			4. REVOKE CREATE TABLE FROM testing
+			5. DROP ROLE role_name
+			6. DROP ROLE testing;
+
 		
 	--> 4. TCL(Transaction Control Language)
 		--> 1. Commit
