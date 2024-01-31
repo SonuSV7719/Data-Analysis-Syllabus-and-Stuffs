@@ -367,3 +367,21 @@
 
 
 ### IS NULL and IS NOT NULL is used to check null or not
+
+
+## if --> function
+
+	Syntax :
+		IF(condition, value_if_true, value_if_false)
+
+	example SELECT IF(500<1000, 5, 10);
+
+## IFNULL(expression, alt_value)
+
+## Case:
+	CASE
+	    WHEN condition1 THEN result1
+	    WHEN condition2 THEN result2
+	    WHEN conditionN THEN resultN
+	    ELSE result
+	END;
