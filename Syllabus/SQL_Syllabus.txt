@@ -339,6 +339,7 @@
 	3. CEIL() or CEILING(): Rounds a numeric value up to the nearest integer.
 	4. FLOOR(): Rounds a numeric value down to the nearest integer.
 	5. POWER(): Raises a number to the power of another.
+	6. Mod(devident, divisor)
 
 19. Logical Functions:
 	
